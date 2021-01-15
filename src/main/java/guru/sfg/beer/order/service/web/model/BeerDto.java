@@ -1,4 +1,4 @@
-package guru.sfg.brewery.model;
+package guru.sfg.beer.order.service.web.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -10,14 +10,12 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-06-09.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class BeerDto {
+
     private UUID id = null;
     private Integer version = null;
 

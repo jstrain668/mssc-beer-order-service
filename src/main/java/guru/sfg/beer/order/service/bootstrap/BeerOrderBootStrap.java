@@ -12,6 +12,7 @@ import java.util.UUID;
 /**
  * Created by jt on 2019-06-06.
  */
+
 @Slf4j
 @RequiredArgsConstructor
 @Component
@@ -29,6 +30,7 @@ public class BeerOrderBootStrap implements CommandLineRunner {
     }
 
     private void loadCustomerData() {
+
         if (customerRepository.findAllByCustomerNameLike(BeerOrderBootStrap.TASTING_ROOM) .size() == 0) {
             Customer savedCustomer = customerRepository.saveAndFlush(Customer.builder()
                     .customerName(TASTING_ROOM)
