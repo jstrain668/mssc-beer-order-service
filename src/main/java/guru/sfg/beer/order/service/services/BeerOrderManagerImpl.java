@@ -16,6 +16,9 @@ import org.springframework.statemachine.support.DefaultStateMachineContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -64,5 +67,28 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
         return sm;
     }
 
+    @Transactional
+    @Override
+    public void processValidationResult(UUID beerOrderId, Boolean isValid) {
+        log.debug("Process Validation Result for beerOrderId: " + beerOrderId + " Valid? " + isValid);
+
+        Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(beerOrderId);
+
+        beerOrderOptional.ifPresentOrElse(beerOrder -> {
+            if(isValid){
+                sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.VALIDATION_PASSED);
+
+                //wait for status change
+                //awaitForStatus(beerOrderId, BeerOrderStatusEnum.VALIDATED);
+
+                BeerOrder validatedOrder = beerOrderRepository.findById(beerOrderId).get();
+
+                sendBeerOrderEvent(validatedOrder, BeerOrderEventEnum.ALLOCATE_ORDER);
+
+            } else {
+                sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.VALIDATION_FAILED);
+            }
+        }, () -> log.error("Order Not Found. Id: " + beerOrderId));
+    }
 
 }
