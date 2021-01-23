@@ -12,12 +12,12 @@ import org.springframework.statemachine.config.builders.StateMachineTransitionCo
 
 import java.util.EnumSet;
 
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 @Configuration
 @EnableStateMachineFactory
 public class BeerOrderStateMachineConfig extends StateMachineConfigurerAdapter<BeerOrderStatusEnum, BeerOrderEventEnum> {
 
-    //private final Action<BeerOrderStatusEnum, BeerOrderEventEnum> validateOrderAction;
+    private final Action<BeerOrderStatusEnum, BeerOrderEventEnum> validateOrderAction;
     //private final Action<BeerOrderStatusEnum, BeerOrderEventEnum>  allocateOrderAction;
     //private final Action<BeerOrderStatusEnum, BeerOrderEventEnum>  validationFailureAction;
     //private final Action<BeerOrderStatusEnum, BeerOrderEventEnum>  allocationFailureAction;
@@ -39,7 +39,7 @@ public class BeerOrderStateMachineConfig extends StateMachineConfigurerAdapter<B
     public void configure(StateMachineTransitionConfigurer<BeerOrderStatusEnum, BeerOrderEventEnum> transitions) throws Exception {
         transitions.withExternal()
                 .source(BeerOrderStatusEnum.NEW).target(BeerOrderStatusEnum.VALIDATION_PENDING)
-                .event(BeerOrderEventEnum.VALIDATE_ORDER)
+                .event(BeerOrderEventEnum.VALIDATE_ORDER).action(validateOrderAction)
                 .and().withExternal()
                 .source(BeerOrderStatusEnum.NEW).target(BeerOrderStatusEnum.VALIDATED)
                 .event(BeerOrderEventEnum.VALIDATION_PASSED);
