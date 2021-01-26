@@ -1,4 +1,4 @@
-package guru.sfg.beer.order.service.services.testcomponents;
+package guru.sfg.beer.order.service.services.testcomponets;
 
 import guru.sfg.beer.order.service.config.JmsConfig;
 import guru.sfg.brewery.model.events.AllocateOrderRequest;
@@ -10,6 +10,9 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
+/**
+ * Created by jt on 2/16/20.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Component

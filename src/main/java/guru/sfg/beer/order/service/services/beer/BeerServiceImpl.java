@@ -9,11 +9,12 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Created by jt on 2019-06-09.
+ */
 @ConfigurationProperties(prefix = "sfg.brewery", ignoreUnknownFields = false)
 @Service
-
 public class BeerServiceImpl implements BeerService {
-
     public final static String BEER_PATH_V1 = "/api/v1/beer/";
     public final static String BEER_UPC_PATH_V1 = "/api/v1/beerUpc/";
     private final RestTemplate restTemplate;

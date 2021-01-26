@@ -18,6 +18,9 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Created by jt on 2/29/20.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Component
@@ -29,7 +32,6 @@ public class DeallocateOrderAction implements Action<BeerOrderStatusEnum, BeerOr
 
     @Override
     public void execute(StateContext<BeerOrderStatusEnum, BeerOrderEventEnum> context) {
-
         String beerOrderId = (String) context.getMessage().getHeaders().get(BeerOrderManagerImpl.ORDER_ID_HEADER);
         Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(UUID.fromString(beerOrderId));
 

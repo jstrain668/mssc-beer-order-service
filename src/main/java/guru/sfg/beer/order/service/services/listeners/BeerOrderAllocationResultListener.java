@@ -8,11 +8,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
+/**
+ * Created by jt on 12/3/19.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Component
 public class BeerOrderAllocationResultListener {
-
     private final BeerOrderManager beerOrderManager;
 
     @JmsListener(destination = JmsConfig.ALLOCATE_ORDER_RESPONSE_QUEUE)
@@ -28,4 +30,5 @@ public class BeerOrderAllocationResultListener {
             beerOrderManager.beerOrderAllocationFailed(result.getBeerOrderDto());
         }
     }
+
 }

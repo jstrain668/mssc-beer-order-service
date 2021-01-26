@@ -1,4 +1,4 @@
-package guru.sfg.beer.order.service.services.testcomponents;
+package guru.sfg.beer.order.service.services.testcomponets;
 
 import guru.sfg.beer.order.service.config.JmsConfig;
 import guru.sfg.brewery.model.events.ValidateOrderRequest;
@@ -10,11 +10,13 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
+/**
+ * Created by jt on 2/15/20.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Component
 public class BeerOrderValidationListener {
-
     private final JmsTemplate jmsTemplate;
 
     @JmsListener(destination = JmsConfig.VALIDATE_ORDER_QUEUE)
@@ -24,13 +26,11 @@ public class BeerOrderValidationListener {
 
         ValidateOrderRequest request = (ValidateOrderRequest) msg.getPayload();
 
-        System.out.println("################ I RAN ######################");
-
         //condition to fail validation
-        if (request.getBeerOrderDto().getCustomerRef() != null) {
-            if (request.getBeerOrderDto().getCustomerRef().equals("fail-validation")){
+        if (request.getBeerOrder().getCustomerRef() != null) {
+            if (request.getBeerOrder().getCustomerRef().equals("fail-validation")){
                 isValid = false;
-            } else if (request.getBeerOrderDto().getCustomerRef().equals("dont-validate")){
+            } else if (request.getBeerOrder().getCustomerRef().equals("dont-validate")){
                 sendResponse = false;
             }
         }
@@ -39,7 +39,7 @@ public class BeerOrderValidationListener {
             jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE,
                     ValidateOrderResult.builder()
                             .isValid(isValid)
-                            .orderId(request.getBeerOrderDto().getId())
+                            .orderId(request.getBeerOrder().getId())
                             .build());
         }
     }
