@@ -20,6 +20,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>artemis-jms-server</artifactId>
             <scope>test</scope>
@@ -54,6 +58,5 @@
             <url>https://jitpack.io</url>
         </repository>
     </repositories>
-
 
 </project>
