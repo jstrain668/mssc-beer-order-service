@@ -28,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerPagedList listCustomers(Pageable pageable) {
 
         Page<Customer> customerPage = customerRepository.findAll(pageable);
-
+        log.debug("Customers retrieved from repo");
         return new CustomerPagedList(customerPage
                         .stream()
                         .map(customerMapper::customerToDto)
